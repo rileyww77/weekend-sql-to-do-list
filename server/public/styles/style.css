@@ -1,5 +1,13 @@
 html{
-    background-image: url(https://pngimage.net/wp-content/uploads/2018/06/notebook-background-png-1.png);
+    background-image: url(https://i.pinimg.com/originals/80/c9/83/80c983e16fb0d9b07bcf6ff87425e60f.jpg);
+    background-size: cover;
     
-    
+}
+
+#title{
+   text-align: center;
+}
+
+#inputFields {
+    text-align: center;
 }
