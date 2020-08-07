@@ -20,6 +20,18 @@ $.ajax({
 }).then(function (response){
     $('#newTasks').empty();
     console.log(response);
+    let tasksToAdd = response
+    //append current tasks to DOM
+    for (task of tasksToAdd){
+        $('#newTasks').append(`
+        <tr>
+            <td>${task.tasks}</td>
+            <td>${task.notes}</td>
+            <td>${task.completed}</td>
+        
+        </tr>
+        `)
+    }
 })
     
 }

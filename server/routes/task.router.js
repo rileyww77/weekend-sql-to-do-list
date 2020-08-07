@@ -15,7 +15,18 @@ const pool = new Pool({
 });
 
 //get request
-
+router.get('/', (req, res) => {
+    console.log('in get request');
+    let queryText = 'SELECT * FROM "tasks" ORDER BY "id";';
+    pool.query(queryText).then(result => {
+      // Sends back the results in an object
+      res.send(result.rows);
+    })
+      .catch(error => {
+        console.log('error getting tasks', error);
+        res.sendStatus(500);
+      });
+  });
 
 //post request
 
