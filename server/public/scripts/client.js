@@ -70,6 +70,7 @@ function addNewTask() {
 //PUT request
 function taskCompleted() {
     console.log('done clicked');
+    
     //getting the data stored in the table row
     const id = $(this).closest('tr').data('taskid');
     completedStatus='Yes!';
