@@ -95,6 +95,7 @@ function taskCompleted() {
         data: { completed: completedStatus }
     }).then(function (response) {
         console.log(response);
+        getTasks();
     }).catch(function (error) {
         alert('error updating task, error:', error);
     })
