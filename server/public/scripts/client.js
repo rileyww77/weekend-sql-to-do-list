@@ -88,4 +88,16 @@ function taskCompleted() {
 //DELETE request
 function deleteTask() {
     console.log('delete button clicked');
+    const id = $(this).closest('tr').data('taskid');
+    console.log('in delete, deleting:', id);
+
+    $.ajax({
+        method: 'DELETE',
+        url: `/tasks/${id}`
+    }).then(function (response) {
+        console.log('back in delete', response);
+        getTasks();
+    }).catch (function (error){
+        alert('error deleting. Try again later!', error)
+    });
 }

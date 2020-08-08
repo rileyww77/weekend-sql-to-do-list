@@ -7,9 +7,9 @@ const Pool = pg.Pool; // Class
 
 // Connect Node to our database
 const pool = new Pool({
-    database: 'weekend-to-do-app', // name of our database
+    database: 'weekend-to-do-app', // name of database
     host: 'localhost', 
-    port: 5432, // this is the default port
+    port: 5432, 
     max: 10, // number of connections
     idleTimeoutMillis: 10000 // 10 seconds
 });
@@ -26,7 +26,7 @@ router.get('/', (req, res) => {
             console.log('error getting tasks', error);
             res.sendStatus(500);
         });
-});
+});//end get request
 
 //post request
 router.post('/', (req, res) => {
@@ -43,7 +43,7 @@ router.post('/', (req, res) => {
         console.log(`Error adding new book`, error);
         res.sendStatus(500);
     })
-});
+});//end post request
 
 //put request
 router.put( '/:id', (req, res) =>{
@@ -59,10 +59,20 @@ router.put( '/:id', (req, res) =>{
         console.log('error in put', error);
         res.sendStatus(500);
     })
-})
+})//end put request
 
 //delete request
-
+router.delete('/:id', (req,res)=>{
+    console.log('/items delete, deleting:', req.params.id);
+    let queryText = `DELETE FROM "tasks"
+                    WHERE "id"=$1;`;
+    pool.query(queryText, [req.params.id]).then((response)=>{
+        res.sendStatus(200);
+    }).catch((error)=>{
+        console.log('error deleting', error);
+        res.sendStatus(500);
+    });
+})//end delete request
 
 
 module.exports = router;
