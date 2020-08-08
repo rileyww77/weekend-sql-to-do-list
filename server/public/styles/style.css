@@ -10,4 +10,40 @@ html{
 
 #inputFields {
     text-align: center;
+    margin-top: 30px;
+    margin-bottom: 25px;
 }
+
+.taskHead{
+    text-align: left;
+    display: inline;
+    margin-left: 160px;
+}
+
+.noteHead{
+    text-align: center;
+    display: inline;
+    margin-left: 400px;
+    
+}
+
+.completeHead{
+    text-align: right;
+    display: inline;
+    margin-left: 350px;
+    
+}
+
+
+.taskData{
+    margin-top:100px;
+    padding-left: 180px;
+    padding-right: 210px;
+    padding-top: 40px;
+
+}
+
+.completeButton{
+    margin-right: 10px;
+}
+

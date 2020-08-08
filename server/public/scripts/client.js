@@ -2,7 +2,7 @@ console.log('client is running');
 
 $(document).ready(onReady);
 
-let completedStatus = "n";
+let completedStatus = "No";
 
 function onReady() {
     //click events
@@ -28,13 +28,15 @@ function getTasks() {
         //append current tasks to DOM
         for (task of tasksToAdd) {
             $('#newTasks').append(`
-                <tr data-taskid="${task.id}">
-                    <td>${task.tasks}</td>
-                    <td>${task.notes}</td>
-                    <td data-status="${task.completed}">${task.completed}</td>
-                    <td><button class="completeButton">Done!</button></td>
-                    <td><button class="deleteButton">Delete</button></td>
-                </tr>
+                <table id=newTaskTable>
+                    <tr data-taskid="${task.id}">
+                        <td class="taskData">${task.tasks}</td>
+                        <td class="taskData">${task.notes}</td>
+                        <td class="taskData">${task.completed}</td>
+                        <td><button class="completeButton">Done!</button></td>
+                        <td><button class="deleteButton">Delete</button></td>
+                    </tr>
+                </table>
              `)
         }
     })
@@ -70,7 +72,7 @@ function taskCompleted() {
     console.log('done clicked');
     //getting the data stored in the table row
     const id = $(this).closest('tr').data('taskid');
-    completedStatus='Y';
+    completedStatus='Yes!';
     console.log(id);
     $.ajax({
         method: 'PUT',
