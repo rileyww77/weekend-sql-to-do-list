@@ -4,7 +4,7 @@ $(document).ready(onReady);
 
 let completedStatus = "N";
 
-function onReady(){
+function onReady() {
     //click events
     $('#submitButton').on('click', addNewTask);
 
@@ -13,34 +13,35 @@ function onReady(){
 }
 
 //GET request, puts tasks on DOM
-function getTasks(){
-console.log('in getTasks');
+function getTasks() {
+    console.log('in getTasks');
 
-$.ajax({
-    type: 'GET',
-    url: '/tasks'
-}).then(function (response){
-    $('#newTasks').empty();
-    console.log(response);
-    let tasksToAdd = response
-    //append current tasks to DOM
-    for (task of tasksToAdd){
-        $('#newTasks').append(`
-        <tr>
+    $.ajax({
+        type: 'GET',
+        url: '/tasks'
+    }).then(function (response) {
+        $('#newTasks').empty();
+        console.log(response);
+        let tasksToAdd = response
+        //append current tasks to DOM
+        for (task of tasksToAdd) {
+            $('#newTasks').append(`
+        <tr data-taskid="${task.id}">
             <td>${task.tasks}</td>
             <td>${task.notes}</td>
             <td>${task.completed}</td>
-        
+            <td><button class="completeButton">Done!</button></td>
+            <td><button class="deleteButton">Delete</button></td>
         </tr>
         `)
-    }
-})
-    
+        }
+    })
+
 }
 
 
 //adding new task, will be POST request
-function addNewTask(){
+function addNewTask() {
     console.log('clicked');
     let taskObject = {
         task: $('#taskIn').val(),
@@ -52,11 +53,20 @@ function addNewTask(){
         method: 'POST',
         url: '/tasks',
         data: taskObject
-    }).then(function (response){
+    }).then(function (response) {
         console.log('the response from the server is', response);
         getTasks();
-    }).catch (function (error) {
+        $('#taskIn').val('');
+        $('#notesIn').val('');
+    }).catch(function (error) {
         console.log('Error in POST', error);
-      alert('Unable to add task at this time. Please try again later.');
+        alert('Unable to add task at this time. Please try again later.');
     });
 }
+
+//PUT request
+
+
+
+
+//DELETE request
