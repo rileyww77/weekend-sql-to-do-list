@@ -27,7 +27,8 @@ function getTasks() {
         let tasksToAdd = response
         //append current tasks to DOM
         for (task of tasksToAdd) {
-            $('#newTasks').append(`
+            if (task.completed === "No") {
+                $('#newTasks').append(`
                 <table id=newTaskTable>
                     <tr data-taskid="${task.id}">
                         <td class="taskData">${task.tasks}</td>
@@ -37,10 +38,23 @@ function getTasks() {
                         <td><button class="deleteButton">Delete</button></td>
                     </tr>
                 </table>
-             `)
+             `)} else {
+                $('#newTasks').append(`
+                <table id=newTaskTable>
+                    <tr data-taskid="${task.id}">
+                        <td class="taskData lineThrough">${task.tasks}</td>
+                        <td class="taskData lineThrough">${task.notes}</td>
+                        <td class="taskData lineThrough">${task.completed}</td>
+                        <td><button class="completeButton">Done!</button></td>
+                        <td><button class="deleteButton">Delete</button></td>
+                    </tr>
+                </table>`
+                )}
+            
         }
-    })
-};
+    }
+    )}
+
 
 
 //adding new task, will be POST request
@@ -70,15 +84,15 @@ function addNewTask() {
 //PUT request
 function taskCompleted() {
     console.log('done clicked');
-    
+
     //getting the data stored in the table row
     const id = $(this).closest('tr').data('taskid');
-    completedStatus='Yes!';
+    completedStatus = 'Yes!';
     console.log(id);
     $.ajax({
         method: 'PUT',
         url: `/tasks/${id}`,
-        data: {completed: completedStatus}
+        data: { completed: completedStatus }
     }).then(function (response) {
         console.log(response);
     }).catch(function (error) {
@@ -100,7 +114,7 @@ function deleteTask() {
     }).then(function (response) {
         console.log('back in delete', response);
         getTasks();
-    }).catch (function (error){
+    }).catch(function (error) {
         alert('error deleting. Try again later!', error)
     });
 }
