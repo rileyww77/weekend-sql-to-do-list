@@ -8,7 +8,7 @@ const Pool = pg.Pool; // Class
 // Connect Node to our database
 const pool = new Pool({
     database: 'weekend-to-do-app', // name of our database
-    host: 'localhost', // where is your database?
+    host: 'localhost', 
     port: 5432, // this is the default port
     max: 10, // number of connections
     idleTimeoutMillis: 10000 // 10 seconds
@@ -46,7 +46,20 @@ router.post('/', (req, res) => {
 });
 
 //put request
-
+router.put( '/:id', (req, res) =>{
+    console.log('in PUT', req.body);
+    let queryText = `UPDATE "tasks" 
+                    SET "completed" = $1 
+                    WHERE "id"=$2;`;
+    let values = [req.body.completed, req.params.id]
+    console.log(values);
+    pool.query(queryText, values).then((results)=>{
+        res.sendStatus(200);
+    }).catch ((error) =>{
+        console.log('error in put', error);
+        res.sendStatus(500);
+    })
+})
 
 //delete request
 

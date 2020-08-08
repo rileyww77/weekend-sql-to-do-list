@@ -2,11 +2,13 @@ console.log('client is running');
 
 $(document).ready(onReady);
 
-let completedStatus = "N";
+let completedStatus = "n";
 
 function onReady() {
     //click events
     $('#submitButton').on('click', addNewTask);
+    $('#newTasks').on('click', '.completeButton', taskCompleted);
+    $('#newTasks').on('click', '.deleteButton', deleteTask);
 
     //getting the tasks on the DOM
     getTasks();
@@ -26,18 +28,17 @@ function getTasks() {
         //append current tasks to DOM
         for (task of tasksToAdd) {
             $('#newTasks').append(`
-        <tr data-taskid="${task.id}">
-            <td>${task.tasks}</td>
-            <td>${task.notes}</td>
-            <td>${task.completed}</td>
-            <td><button class="completeButton">Done!</button></td>
-            <td><button class="deleteButton">Delete</button></td>
-        </tr>
-        `)
+                <tr data-taskid="${task.id}">
+                    <td>${task.tasks}</td>
+                    <td>${task.notes}</td>
+                    <td data-status="${task.completed}">${task.completed}</td>
+                    <td><button class="completeButton">Done!</button></td>
+                    <td><button class="deleteButton">Delete</button></td>
+                </tr>
+             `)
         }
     })
-
-}
+};
 
 
 //adding new task, will be POST request
@@ -65,8 +66,26 @@ function addNewTask() {
 }
 
 //PUT request
+function taskCompleted() {
+    console.log('done clicked');
+    //getting the data stored in the table row
+    const id = $(this).closest('tr').data('taskid');
 
+    console.log(id);
+    $.ajax({
+        method: 'PUT',
+        url: `/tasks/${id}`,
+        data: {completed: completedStatus}
+    }).then(function (response) {
+        console.log(response);
+    }).catch(function (error) {
+        alert('error updating task, error:', error);
+    })
+};
 
 
 
 //DELETE request
+function deleteTask() {
+    console.log('delete button clicked');
+}
