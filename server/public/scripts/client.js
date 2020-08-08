@@ -2,6 +2,8 @@ console.log('client is running');
 
 $(document).ready(onReady);
 
+let completedStatus = "N";
+
 function onReady(){
     //click events
     $('#submitButton').on('click', addNewTask);
@@ -37,7 +39,24 @@ $.ajax({
 }
 
 
-//adding new task, will be PUT request
+//adding new task, will be POST request
 function addNewTask(){
     console.log('clicked');
+    let taskObject = {
+        task: $('#taskIn').val(),
+        notes: $('#notesIn').val(),
+        completed: completedStatus
+    }
+
+    $.ajax({
+        method: 'POST',
+        url: '/tasks',
+        data: taskObject
+    }).then(function (response){
+        console.log('the response from the server is', response);
+        getTasks();
+    }).catch (function (error) {
+        console.log('Error in POST', error);
+      alert('Unable to add task at this time. Please try again later.');
+    });
 }
