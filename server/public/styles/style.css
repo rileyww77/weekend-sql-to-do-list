@@ -7,26 +7,33 @@ html{
 #title{
    text-align: center;
    font-family: cursive;
-   font-size: 80px;
-display: inline;
-margin-left: 580px;
-margin-right: 250px;
+   font-size: 100px;
+    display: inline;
+    margin-left: 580px;
+    margin-right: 200px;
 }
 
+#headersForTasks{
+    margin-right: 50px;
+}
 
 
 .taskHead{
     text-align: left;
     display: inline;
-    margin-left: 160px;
+    margin-left: 180px;
     font-family: cursive;
+    font-size: 50px;
+    text-decoration: underline;
 }
 
 .noteHead{
     text-align: center;
     display: inline;
-    margin-left: 400px;
+    margin-left: 350px;
     font-family: cursive;
+    font-size: 50px;
+    text-decoration: underline;
     
 }
 
@@ -35,6 +42,8 @@ margin-right: 250px;
     display: inline;
     margin-left: 350px;
     font-family: cursive;
+    font-size: 50px;
+    text-decoration: underline;
     
 }
 
@@ -42,8 +51,10 @@ margin-right: 250px;
 .taskData{
     margin-top:100px;
     padding-left: 180px;
-    padding-right: 210px;
+    padding-right: 170px;
     padding-top: 40px;
+    font-family: cursive;
+    font-size: 25px;
 
 }
 
