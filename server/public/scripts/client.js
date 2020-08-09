@@ -34,7 +34,7 @@ function getTasks() {
                         <td class="taskData">${task.tasks}</td>
                         <td class="taskData">${task.notes}</td>
                         <td class="taskData">${task.completed}</td>
-                        <td><button class="completeButton">Done!</button></td>
+                        <td><button class="completeButton">Complete</button></td>
                         <td><button class="deleteButton">Delete</button></td>
                     </tr>
                 </table>
