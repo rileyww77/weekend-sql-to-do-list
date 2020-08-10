@@ -5,14 +5,35 @@ const pg = require('pg');
 // DB CONNECTION
 const Pool = pg.Pool; // Class
 
+let config = {};
+
+if (process.env.DATABASE_URL) {
+    
+    const params = url.parse(process.env.DATABASE_URL);
+    const auth  = params.auth.split(':');
+    
+    config = {
+        user: auth[0],
+        password: auth[1],
+        host: params.hostname,
+        port: params.port,
+        database: params.pathname.split('/')[1],
+        ssl: true,
+        max:10,
+        idleTimeoutMillis: 30000,
+    }
+} else {
+    config = {
+        database: 'weekend-to-do-app', // name of database
+        host: 'localhost', 
+        port: 5432, 
+        max: 10, // number of connections
+        idleTimeoutMillis: 10000 // 10 seconds
+    };
+}
+
 // Connect Node to our database
-const pool = new Pool({
-    database: 'weekend-to-do-app', // name of database
-    host: 'localhost', 
-    port: 5432, 
-    max: 10, // number of connections
-    idleTimeoutMillis: 10000 // 10 seconds
-});
+const pool = new Pool(config);
 
 //get request
 router.get('/', (req, res) => {
