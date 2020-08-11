@@ -2,8 +2,7 @@ const express = require('express');
 const router = express.Router();
 const pg = require('pg');
 
-// DB CONNECTION
-const Pool = pg.Pool; // Class
+
 
 let config = {};
 
@@ -33,7 +32,7 @@ if (process.env.DATABASE_URL) {
 }
 
 // Connect Node to our database
-const pool = new Pool(config);
+const pool = new pg.Pool(config);
 
 //get request
 router.get('/', (req, res) => {
